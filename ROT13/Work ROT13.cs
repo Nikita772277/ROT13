@@ -10,93 +10,101 @@ namespace ROT13
     {
         public void WordEncryption(string enter)
         {
-            char[] latinAlphabetLowercase = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-            char[] latinAlphabetUppercase = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-            var enterchars= enter.ToArray();
-            for(int i = 0; i < enterchars.Length; i++)
+            if (enter == " " || enter == "")
             {
-                if (char.IsLetter(enterchars[i]))
+                Console.WriteLine($"Вы нечего не ввели");
+            }
+            else
+            {
+                char[] latinAlphabetLowercase = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+                char[] latinAlphabetUppercase = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+                var enterchars = enter.ToArray();
+                for (int i = 0; i < enterchars.Length; i++)
                 {
-                    bool checkEnglish=false;
-                    foreach (char c in latinAlphabetLowercase)
+                    if (char.IsLetter(enterchars[i]))
                     {
-                        if(enterchars[i]== c)
+                        bool checkEnglish = false;
+                        foreach (char c in latinAlphabetLowercase)
                         {
-                            checkEnglish=true;
-                        }
-                    }
-                    foreach(char c in latinAlphabetUppercase)
-                    {
-                        if (enterchars[i] == c)
-                        {
-                            checkEnglish = true;
-                        }
-                    }
-                    if (checkEnglish)
-                    {
-                        char symbol = ' ';
-                        int counter = 0;
-                        bool checksymbol = false;
-                        for (int j = 0; j < latinAlphabetLowercase.Length; j++)
-                        {
-                            if (enterchars[i] == latinAlphabetLowercase[j])
+                            if (enterchars[i] == c)
                             {
-                                checksymbol = true;
-                            }
-                            if (checksymbol)
-                            {
-                                counter++;
-                                if (counter == 13)
-                                {
-                                    symbol = latinAlphabetLowercase[j];
-                                    counter = 0;
-                                    checksymbol=false;
-                                    break;
-                                }
-                            }
-                            if (j == 25)
-                            {
-                                if (checksymbol == false)
-                                {
-                                    break;
-                                }
-                                j = 0;
+                                checkEnglish = true;
                             }
                         }
-                        for (int j = 0; j < latinAlphabetUppercase.Length; j++)
+                        foreach (char c in latinAlphabetUppercase)
                         {
-                            if (enterchars[i] == latinAlphabetUppercase[j])
+                            if (enterchars[i] == c)
                             {
-                                checksymbol = true;
-                            }
-                            if (checksymbol)
-                            {
-                                counter++;
-                                if (counter == 13)
-                                {
-                                    symbol = latinAlphabetUppercase[j];
-                                    counter = 0;
-                                    break;
-                                }
-                            }
-                            if (j == 25)
-                            {
-                                if (checksymbol == false)
-                                {
-                                    break;
-                                }
-                                j = 0;
+                                checkEnglish = true;
                             }
                         }
-                        enterchars[i] = symbol;
+                        if (checkEnglish)
+                        {
+                            char symbol = ' ';
+                            int counter = 0;
+                            bool checksymbol = false;
+                            for (int j = 0; j < latinAlphabetLowercase.Length; j++)
+                            {
+                                if (enterchars[i] == latinAlphabetLowercase[j])
+                                {
+                                    checksymbol = true;
+                                }
+                                if (checksymbol)
+                                {
+                                    counter++;
+                                    if (counter == 13)
+                                    {
+                                        symbol = latinAlphabetLowercase[j];
+                                        counter = 0;
+                                        checksymbol = false;
+                                        break;
+                                    }
+                                }
+                                if (j == 25)
+                                {
+                                    if (checksymbol == false)
+                                    {
+                                        break;
+                                    }
+                                    j = 0;
+                                }
+                            }
+                            for (int j = 0; j < latinAlphabetUppercase.Length; j++)
+                            {
+                                if (enterchars[i] == latinAlphabetUppercase[j])
+                                {
+                                    checksymbol = true;
+                                }
+                                if (checksymbol)
+                                {
+                                    counter++;
+                                    if (counter == 13)
+                                    {
+                                        symbol = latinAlphabetUppercase[j];
+                                        counter = 0;
+                                        break;
+                                    }
+                                }
+                                if (j == 25)
+                                {
+                                    if (checksymbol == false)
+                                    {
+                                        break;
+                                    }
+                                    j = 0;
+                                }
+                            }
+                            enterchars[i] = symbol;
+                        }
                     }
                 }
-            }
-            foreach(char c in enterchars)
-            {
-                Console.Write(c);
+                Console.Write($"Зашифрованный текст: ");
+                foreach (char c in enterchars)
+                {
+                    Console.Write(c);
+                }
+                Console.WriteLine();
             }
         }
-
     }
 }
